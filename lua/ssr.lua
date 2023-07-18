@@ -241,6 +241,7 @@ function Ui:replace_all()
 end
 
 function Ui:replace_confirm()
+  vim.notify(tostring(#self.matches))
   if #self.matches == 0 then
     return self:set_status "pattern not found"
   end
@@ -368,7 +369,16 @@ function Ui:set_status(status)
 end
 
 function M.open()
-  Ui:new():open()
+  M._ui = Ui:new()
+  M._ui:open()
+end
+
+function M.replace_confirm()
+  M._ui:replace_confirm()
+end
+
+function M.replace_all()
+  M._ui:replace_all()
 end
 
 return M
